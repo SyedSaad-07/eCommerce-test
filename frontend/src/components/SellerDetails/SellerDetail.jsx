@@ -23,7 +23,29 @@ const SellerDetail = () => {
         initialValues: fromInitialValues,
         validationSchema: BrandSchema,
         onSubmit: async (values, action) => {
-         setFlagBrand(false);    
+         setFlagBrand(false);
+            
+        let requestBody = {
+          b_name: values.b_name,
+          website: values.website,
+          storeName: values.storeName,
+          address: values.address,
+          p_name: values.p_name,
+          cat: values.cat,
+          desp: values.desp,
+          price: values.price
+        }
+  
+        try {
+          let response = await axios.post(
+            'http://localhost:5000/b_api/createBrand/',
+            requestBody,
+          )
+          console.log(response)
+        } catch (error) {
+          console.log(error)
+        }
+        action.resetForm()
         },
       })
 
